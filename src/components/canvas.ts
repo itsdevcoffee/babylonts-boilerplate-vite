@@ -11,7 +11,8 @@ import {
   UniversalCamera,
   Vector3,
 } from 'babylonjs'
-import { smoothStep } from '@/lib/shapingFn'
+import { getAbsHighestEdge, smoothStep } from '@/lib/shapingFn'
+import { hexToDecimalColor } from '@/lib/utils'
 
 const canvas = document.getElementById('renderCanvas') as HTMLCanvasElement
 const engine = new Engine(canvas, true, {
@@ -35,18 +36,6 @@ const createScene = () => {
   camera.orthoLeft = 4 * aspectRatio
   camera.orthoRight = -4 * aspectRatio
   const light = new HemisphericLight('light1', new Vector3(0, 1, 0), scene)
-  // sphere = MeshBuilder.CreateSphere(
-  //   'sphere1',
-  //   { segments: 16, diameter: 2, sideOrientation: Mesh.FRONTSIDE },
-  //   scene
-  // )
-  // sphere.position.y = 1
-
-  // const ground = MeshBuilder.CreateGround(
-  //   'ground1',
-  //   { width: 6, height: 6, subdivisions: 2, updatable: false },
-  //   scene
-  // )
 
   return scene
 }
@@ -66,6 +55,15 @@ const sphereDiameter = 0.5
 const sphereSegments = 16
 const sphereStartPos = new Vector3(0, -4, 0)
 
+const posColor = new Color3(...hexToDecimalColor('#4CAF50'))
+const negColor = new Color3(...hexToDecimalColor('#E91E63'))
+const defaultColor = new Color3(...hexToDecimalColor('#3F51B5'))
+
+const posMat = new StandardMaterial('posMat', scene)
+posMat.diffuseColor = posColor
+const negMat = new StandardMaterial('negMat', scene)
+negMat.diffuseColor = negColor
+
 const createSpheres = () => {
   for (let idx = 0; idx < 12; idx++) {
     const mesh = MeshBuilder.CreateSphere(`sphere${idx}`, {
@@ -75,28 +73,36 @@ const createSpheres = () => {
     })
     const offsetY = sphereStartPos.y + ((sphereDiameter + 0.1) * idx + 1)
     mesh.position.set(0, offsetY, 0)
+    mesh.material = idx & 1 ? posMat : negMat
     spheres.push(mesh)
   }
 }
 
-const positiveMaterial = new StandardMaterial('positiveMaterial', scene)
-positiveMaterial.diffuseColor = new Color3(1, 0, 0)
-const negativeMaterial = new StandardMaterial('negativeMaterial', scene)
-negativeMaterial.diffuseColor = new Color3(0, 0, 1)
-
 const bounceSpheres = (time: number) => {
   spheres.forEach((sphere, idx) => {
-    const sign = idx % 2 === 0 ? -1 : 1
+    const sign = idx & 1 ? -1 : 1
 
     sphere.position.x = Math.sin(time) * sign
     const offsetY = sphereStartPos.y + ((sphereDiameter + 0.1) * idx + 1)
-    const delta = smoothStep(-1, 0, sphere.position.x)
-    // sphere.position.y = offsetY
-    const ySign = Math.sign(sphere.position.x)
-    if (ySign === -1) {
-      sphere.material = negativeMaterial
-    } else {
-      sphere.material = positiveMaterial
+    const negDelta = -smoothStep(-sphereDiameter, -1, sphere.position.x)
+    const posDelta = smoothStep(sphereDiameter, 1, sphere.position.x)
+
+    const highestAbsY = getAbsHighestEdge(negDelta, posDelta)
+    sphere.position.y = offsetY + highestAbsY
+
+    const posYSign = Math.sign(sphere.position.y)
+    if (idx === 0) {
+      if (posDelta > negDelta * -1) {
+        posMat.diffuseColor = Color3.Lerp(defaultColor, negColor, highestAbsY)
+      } else {
+        posMat.diffuseColor = Color3.Lerp(defaultColor, posColor, negDelta * -1)
+      }
+    } else if (idx === 1) {
+      if (posDelta > negDelta * -1) {
+        negMat.diffuseColor = Color3.Lerp(defaultColor, negColor, highestAbsY)
+      } else {
+        negMat.diffuseColor = Color3.Lerp(defaultColor, posColor, negDelta * -1)
+      }
     }
   })
 }
