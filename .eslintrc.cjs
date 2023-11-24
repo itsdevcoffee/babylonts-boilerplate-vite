@@ -14,10 +14,12 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 'es2020',
     sourceType: 'module',
+    project: './tsconfig.json',
+    tsconfigRootDir: '.',
   },
   settings: {
     'import/parsers': {
-      '@typescript-eslint/parser': ['.ts', '.js'],
+      '@typescript-eslint/parser': ['.ts', '.js', 'd.ts'],
     },
     'import/resolver': {
       typescript: {
@@ -42,7 +44,6 @@ module.exports = {
         argsIgnorePattern: '^_',
       },
     ],
-    'import/no-unresolved': ['error', { ignore: ['/'] }],
     '@typescript-eslint/consistent-type-imports': [
       'warn',
       {

@@ -1,7 +1,7 @@
-import './style.css'
+import '../style.css'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div>
-    Home
+    Tinybase
   </div>
 `
