@@ -19,10 +19,10 @@
     "eslint-plugin-prettier": "^5.0.1",
     "prettier": "^3.1.0",
     "typescript": "^5.2.2",
-    "typescript": "^5.2.2",
     "vite": "^5.0.0"
   },
   "dependencies": {
+    "babylonjs": "^6.31.0",
     "tinybase": "^4.5.1"
   }
 }

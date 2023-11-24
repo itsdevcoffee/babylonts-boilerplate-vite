@@ -1,10 +1,9 @@
 lockfileVersion: '6.0'
 
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false
-
 dependencies:
+  babylonjs:
+    specifier: ^6.31.0
+    version: 6.31.0
   tinybase:
     specifier: ^4.5.1
     version: 4.5.1(prettier@3.1.0)
@@ -690,6 +689,11 @@ packages:
     engines: {node: '>= 0.4'}
     dev: true
 
+  /babylonjs@6.31.0:
+    resolution: {integrity: sha512-eRBgl0tIew8GUesrT2vrfRtr3LY0B/BV5ZfSBDZmOod6qj9Cqrb0V0QB0L6bEYnza1rBFe+jippRw1OSER783w==}
+    requiresBuild: true
+    dev: false
+
   /balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
     dev: true
@@ -1002,7 +1006,7 @@ packages:
       debug: 4.3.4
       enhanced-resolve: 5.15.0
       eslint: 8.54.0
-      eslint-module-utils: 2.8.0(@typescript-eslint/parser@6.12.0)(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1)(eslint@8.54.0)
+      eslint-module-utils: 2.8.0(@typescript-eslint/parser@6.12.0)(eslint-import-resolver-typescript@3.6.1)(eslint@8.54.0)
       eslint-plugin-import: 2.29.0(@typescript-eslint/parser@6.12.0)(eslint-import-resolver-typescript@3.6.1)(eslint@8.54.0)
       fast-glob: 3.3.2
       get-tsconfig: 4.7.2
@@ -1040,6 +1044,35 @@ packages:
       debug: 3.2.7
       eslint: 8.54.0
       eslint-import-resolver-node: 0.3.9
+      eslint-import-resolver-typescript: 3.6.1(@typescript-eslint/parser@6.12.0)(eslint-plugin-import@2.29.0)(eslint@8.54.0)
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
+  /eslint-module-utils@2.8.0(@typescript-eslint/parser@6.12.0)(eslint-import-resolver-typescript@3.6.1)(eslint@8.54.0):
+    resolution: {integrity: sha512-aWajIYfsqCKRDgUfjEXNN/JlrzauMuSEy5sbd7WXbtW3EH6A6MpwEh42c7qD+MqQo9QMJ6fWLAeIJynx0g6OAw==}
+    engines: {node: '>=4'}
+    peerDependencies:
+      '@typescript-eslint/parser': '*'
+      eslint: '*'
+      eslint-import-resolver-node: '*'
+      eslint-import-resolver-typescript: '*'
+      eslint-import-resolver-webpack: '*'
+    peerDependenciesMeta:
+      '@typescript-eslint/parser':
+        optional: true
+      eslint:
+        optional: true
+      eslint-import-resolver-node:
+        optional: true
+      eslint-import-resolver-typescript:
+        optional: true
+      eslint-import-resolver-webpack:
+        optional: true
+    dependencies:
+      '@typescript-eslint/parser': 6.12.0(eslint@8.54.0)(typescript@5.3.2)
+      debug: 3.2.7
+      eslint: 8.54.0
       eslint-import-resolver-typescript: 3.6.1(@typescript-eslint/parser@6.12.0)(eslint-plugin-import@2.29.0)(eslint@8.54.0)
     transitivePeerDependencies:
       - supports-color
@@ -2439,3 +2472,7 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
     dev: true
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
