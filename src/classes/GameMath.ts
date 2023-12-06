@@ -27,7 +27,7 @@ class GameMath {
     this.width = app.screen.width
     this.mX = this.width / 2
     this.mY = this.height / 2
-    this.gridSize = 100
+    this.gridSize = 40
     this.xLines = new Graphics()
     this.yLines = new Graphics()
     this.pt = new Graphics()

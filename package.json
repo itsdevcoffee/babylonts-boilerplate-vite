@@ -28,6 +28,7 @@
     "babylonjs": "^6.32.1",
     "chroma-js": "^2.4.2",
     "fontfaceobserver": "^2.3.0",
+    "normalize.css": "^8.0.1",
     "pixi.js": "^7.3.2",
     "polished": "^4.2.2",
     "tinybase": "^4.5.4"
